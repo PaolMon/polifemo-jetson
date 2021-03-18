@@ -1,0 +1,31 @@
+{
+    "cameras":
+    {
+        "name":"jetson_camera",
+        "source":"csi://0",
+        "line_orientation":"oblique",
+        "line_position":{
+            "point1":{
+                "x":0,
+                "y":100
+            },
+            "point2":{
+                "x":1280,
+                "y":720
+            }
+        },
+        "position_in":"right"
+    },
+    "databases":
+    {
+        "database_name":"socialcounter",
+        "hostname":"116.203.216.121",
+        "port":8086
+    },
+    "arguments":
+    {
+        "video_output":"rtp://192.168.1.107:1234",
+        "detectNet":"pednet",
+        "threshold":0.5
+    }
+}
