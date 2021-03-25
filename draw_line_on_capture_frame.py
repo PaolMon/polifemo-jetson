@@ -11,7 +11,6 @@ import time
 # Defaults to 1280x720 @ 60fps
 # Flip the image by setting the flip_method (most common values: 0 and 2)
 # display_width and display_height determine the size of the window on the screen
-
 def gstreamer_pipeline(
     capture_width=1920,
     capture_height=1080,
@@ -40,19 +39,18 @@ def gstreamer_pipeline(
         )
     )
 
+ix,iy = 0,0
 
-def draw_circle(event,x,y,flags,param):
-    global mouseX,mouseY
-    if event == cv2.EVENT_LBUTTONDBLCLK:
-        cv2.circle(img,(x,y),100,(255,0,0),-1)
-        mouseX,mouseY = x,y
+def set_mouse_position(event,x,y,flags,param):
+    global ix,iy
+    ix,iy = x,y
 
 def capture_frame(width, height):
     # To flip the image, modify the flip_method parameter (0 and 2 are the most common)
     print(gstreamer_pipeline(flip_method=2))
     cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2, display_width=width, display_height=height), cv2.CAP_GSTREAMER)
     cv2.namedWindow('image')
-    cv2.setMouseCallback('image',draw_circle)
+    cv2.setMouseCallback('image',set_mouse_position)
     while cap.isOpened():
         hf, frame = cap.read()
         cv2.imshow('image',frame)
@@ -60,7 +58,7 @@ def capture_frame(width, height):
         if k == 27:
             break
         elif k == ord('a'):
-            print(mouseX,mouseY)
+            print(ix,iy)
 
 
 
